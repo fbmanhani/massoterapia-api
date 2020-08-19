@@ -1,0 +1,53 @@
+server:
+    port: 8081
+    servlet:
+      context-path: /massoterapia-api
+      
+jwt:
+  tokenExpTime: '1800000'
+  refreshTokenExpTime: '3600000'
+  jwtSecret: 2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b #Precisa ser um Hash SHA-256      
+
+spring:
+  application:
+    name: massoterapia-api
+  datasource:
+    driverClassName: org.h2.Driver
+    password: password
+    url: jdbc:h2:file:c://temp//massoterapiadb
+    username: sa
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties: 
+      hibernate:
+        ddl-auto: update
+        show-sql: true
+        format-sql: true
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  ldap:
+    embedded:
+      base-dn: dc=springframework,dc=org
+      ldif: classpath:local-ldap.ldif
+      port: 12345
+
+firebase-realtime-database:
+    database-url: https://massoterapia-3c8d9.firebaseio.com/
+    
+#Logging
+logging:
+  level:
+    ROOT: DEBUG
+    org.springframework: INFO
+    org.hibernate: INFO
+    
+#Propriedades Documentação
+app-documentation:
+  version: '@project.version@'
+  api-title: Massoterapia API
+  description: '@project.description@'
+  
+  

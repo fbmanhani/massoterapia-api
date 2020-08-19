@@ -15,7 +15,6 @@ import br.edu.ifsp.manhani.massoterapia.mapper.BaseMapper;
 import br.edu.ifsp.manhani.massoterapia.messages.IMessageProperty;
 import br.edu.ifsp.manhani.massoterapia.messages.MessageProperties;
 import br.edu.ifsp.manhani.massoterapia.model.BaseEntity;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * {@link AbstractCrudService} - Classe responsável por expor métodos padrões de escrita, os métodos de consulta são herdados da classe
@@ -27,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
  * @param <M> - {@code <M extends Maapper> }, Mapper utilizado para realizar conversão entre DTO e Entidade.
  * @param <R> - {@code <R extends JpaRepository> }, Repository utilizado para realizar as consultas da entidade.
  */
-@Slf4j
 @Transactional
 public abstract class AbstractCrudService<E extends BaseEntity<I>, I extends Serializable, D extends BaseDTO, M extends BaseMapper<E, D>, R extends JpaRepository<E, I>>
         extends AbstractService<E, I, D, M, R> {
