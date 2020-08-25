@@ -9,8 +9,8 @@ public class ApplicationProperties {
     @Component
     public static class Urls {
 
-        @Value("${frontend-url:swagger-ui.html}")
-        public String frontend;
+        @Value("${spring.application.cors-allowed-urls}")
+        public String allowedUrls;
 
     }
 
