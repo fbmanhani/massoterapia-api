@@ -1,24 +1,34 @@
 package br.edu.ifsp.manhani.massoterapia.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
-public class Parametrizacao implements Serializable {
+@Table(name = "tb_parametrizacao")
+@SequenceGenerator(name = "parametrizacaoGenerator", sequenceName = "sq_parametrizacao")
+public class Parametrizacao extends BaseEntity<Long> {
 
-	private static final long serialVersionUID = -1853066349639288105L;
+    private static final long serialVersionUID = -1853066349639288105L;
 
-	@Id
-	@Column
-	private final Integer id = 1;
+    @Id
+    @Column(name = "id_parametrizacao")
+    private Long id;
 
-	@Column
-	private Integer quantidadePosicoes;
+    @ManyToOne
+    @JoinColumn(name = "id_unidade", nullable = false)
+    private Unidade unidade;
+
+    @Column(name = "nu_posicoes", nullable = false)
+    private Integer quantidadePosicoes;
 
 }

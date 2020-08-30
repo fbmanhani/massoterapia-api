@@ -30,107 +30,107 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JwtTokenProvider {
 
-	@Autowired
-	private JwtProperties jwtProperties;
+    @Autowired
+    private JwtProperties jwtProperties;
 
-	public String generateToken(Authentication authentication, Collection<? extends GrantedAuthority> aditionalRoles) {
-		LdapUserDetailsImpl userPrincipal = (LdapUserDetailsImpl) authentication.getPrincipal();
+    public String generateToken(Authentication authentication, Collection<? extends GrantedAuthority> aditionalRoles) {
+        LdapUserDetailsImpl userPrincipal = (LdapUserDetailsImpl) authentication.getPrincipal();
 
-		Date now = new Date();
-		Date expiryDate = new Date(now.getTime() + jwtProperties.getTokenExpTime());
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtProperties.getTokenExpTime());
 
-		Key key = Keys.hmacShaKeyFor(jwtProperties.getJwtSecret().getBytes());
-		String roles = getRoles(authentication.getAuthorities(), aditionalRoles);
+        Key key = Keys.hmacShaKeyFor(jwtProperties.getJwtSecret().getBytes());
+        String roles = getRoles(authentication.getAuthorities(), aditionalRoles);
 
-		return Jwts.builder().setSubject(userPrincipal.getUsername()).setIssuedAt(new Date()).setExpiration(expiryDate)
-				.claim(JwtProperties.ROLES_CLAIM, roles).signWith(key).compact();
-	}
+        return Jwts.builder().setSubject(userPrincipal.getUsername()).setIssuedAt(new Date()).setExpiration(expiryDate)
+                .claim(JwtProperties.ROLES_CLAIM, roles).signWith(key).compact();
+    }
 
-	private String getRoles(Collection<? extends GrantedAuthority> authorities,
-			Collection<? extends GrantedAuthority> aditionalRoles) {
-		String roles = StringUtils.join(AuthorityUtils.authorityListToSet(authorities), ", ");
-		roles += StringUtils.join(AuthorityUtils.authorityListToSet(aditionalRoles), ", ");
-		return roles;
-	}
+    private String getRoles(Collection<? extends GrantedAuthority> authorities,
+            Collection<? extends GrantedAuthority> aditionalRoles) {
+        String roles = StringUtils.join(AuthorityUtils.authorityListToSet(authorities), ", ");
+        roles += StringUtils.join(AuthorityUtils.authorityListToSet(aditionalRoles), ", ");
+        return roles;
+    }
 
-	public String getUsernameFromJWT(String token) {
-		Claims claims = Jwts.parser().setSigningKey(jwtProperties.getJwtSecret()).parseClaimsJws(token).getBody();
-		return claims.getSubject();
-	}
+    public String getUsernameFromJWT(String token) {
+        Claims claims = Jwts.parser().setSigningKey(jwtProperties.getJwtSecret()).parseClaimsJws(token).getBody();
+        return claims.getSubject();
+    }
 
-	public boolean validateToken(String authToken) {
-		try {
-			Jwts.parser().setSigningKey(jwtProperties.getJwtSecret()).parseClaimsJws(authToken);
-			return true;
-		} catch (SignatureException ex) {
-			log.error("Invalid JWT signature");
-		} catch (MalformedJwtException ex) {
-			log.error("Invalid JWT token");
-		} catch (ExpiredJwtException ex) {
-			log.error("Expired JWT token");
-		} catch (UnsupportedJwtException ex) {
-			log.error("Unsupported JWT token");
-		} catch (IllegalArgumentException ex) {
-			log.error("JWT claims string is empty.");
-		}
-		return false;
-	}
+    public boolean validateToken(String authToken) {
+        try {
+            Jwts.parser().setSigningKey(jwtProperties.getJwtSecret()).parseClaimsJws(authToken);
+            return true;
+        } catch (SignatureException ex) {
+            log.error("Invalid JWT signature");
+        } catch (MalformedJwtException ex) {
+            log.error("Invalid JWT token");
+        } catch (ExpiredJwtException ex) {
+            log.error("Expired JWT token");
+        } catch (UnsupportedJwtException ex) {
+            log.error("Unsupported JWT token");
+        } catch (IllegalArgumentException ex) {
+            log.error("JWT claims string is empty.");
+        }
+        return false;
+    }
 
-	public String generateToken(HttpServletRequest request) {
-		String header = request.getHeader(JwtProperties.TOKEN_HEADER);
+    public String generateToken(HttpServletRequest request) {
+        String header = request.getHeader(JwtProperties.TOKEN_HEADER);
 
-		if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
-			throw new BusinessException(MessageProperties.MSG0002);
-		}
+        if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
+            throw new BusinessException(MessageProperties.MSG0002);
+        }
 
-		String token = header.replace(JwtProperties.TOKEN_PREFIX, "");
-		Claims claims = Jwts.parser().setSigningKey(jwtProperties.getJwtSecret().getBytes()).parseClaimsJws(token)
-				.getBody();
-		String username = claims.getSubject();
-		if (username != null) {
-			String roles = (String) claims.get("roles");
-			Date now = new Date();
-			Date expiryDate = new Date(now.getTime() + jwtProperties.getTokenExpTime());
-			Key key = Keys.hmacShaKeyFor(jwtProperties.getJwtSecret().getBytes());
-			return Jwts.builder().setSubject(username).setIssuedAt(new Date()).setExpiration(expiryDate)
-					.claim(JwtProperties.ROLES_CLAIM, roles).signWith(key).compact();
-		}
-		return null;
-	}
+        String token = header.replace(JwtProperties.TOKEN_PREFIX, "");
+        Claims claims = Jwts.parser().setSigningKey(jwtProperties.getJwtSecret().getBytes()).parseClaimsJws(token)
+                .getBody();
+        String username = claims.getSubject();
+        if (username != null) {
+            String roles = (String) claims.get("roles");
+            Date now = new Date();
+            Date expiryDate = new Date(now.getTime() + jwtProperties.getTokenExpTime());
+            Key key = Keys.hmacShaKeyFor(jwtProperties.getJwtSecret().getBytes());
+            return Jwts.builder().setSubject(username).setIssuedAt(new Date()).setExpiration(expiryDate)
+                    .claim(JwtProperties.ROLES_CLAIM, roles).signWith(key).compact();
+        }
+        return null;
+    }
 
-	public String generateRefreshToken(HttpServletRequest request) {
-		String header = request.getHeader(JwtProperties.TOKEN_HEADER);
+    public String generateRefreshToken(HttpServletRequest request) {
+        String header = request.getHeader(JwtProperties.TOKEN_HEADER);
 
-		if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
-			throw new BusinessException(MessageProperties.MSG0002);
-		}
+        if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
+            throw new BusinessException(MessageProperties.MSG0002);
+        }
 
-		String token = header.replace(JwtProperties.TOKEN_PREFIX, "");
-		Claims claims = Jwts.parser().setSigningKey(jwtProperties.getJwtSecret().getBytes()).parseClaimsJws(token)
-				.getBody();
-		String username = claims.getSubject();
-		if (username != null) {
-			String roles = (String) claims.get("roles");
-			Date now = new Date();
-			Date expiryDate = new Date(now.getTime() + jwtProperties.getRefreshTokenExpTime());
-			Key key = Keys.hmacShaKeyFor(jwtProperties.getJwtSecret().getBytes());
-			return Jwts.builder().setSubject(username).setIssuedAt(new Date()).setExpiration(expiryDate)
-					.claim(JwtProperties.ROLES_CLAIM, roles).signWith(key).compact();
-		}
-		return null;
-	}
+        String token = header.replace(JwtProperties.TOKEN_PREFIX, "");
+        Claims claims = Jwts.parser().setSigningKey(jwtProperties.getJwtSecret().getBytes()).parseClaimsJws(token)
+                .getBody();
+        String username = claims.getSubject();
+        if (username != null) {
+            String roles = (String) claims.get("roles");
+            Date now = new Date();
+            Date expiryDate = new Date(now.getTime() + jwtProperties.getRefreshTokenExpTime());
+            Key key = Keys.hmacShaKeyFor(jwtProperties.getJwtSecret().getBytes());
+            return Jwts.builder().setSubject(username).setIssuedAt(new Date()).setExpiration(expiryDate)
+                    .claim(JwtProperties.ROLES_CLAIM, roles).signWith(key).compact();
+        }
+        return null;
+    }
 
-	public String generateRefreshToken(Authentication authentication,
-			Collection<? extends GrantedAuthority> aditionalRoles) {
-		LdapUserDetailsImpl userPrincipal = (LdapUserDetailsImpl) authentication.getPrincipal();
+    public String generateRefreshToken(Authentication authentication,
+            Collection<? extends GrantedAuthority> aditionalRoles) {
+        LdapUserDetailsImpl userPrincipal = (LdapUserDetailsImpl) authentication.getPrincipal();
 
-		Date now = new Date();
-		Date expiryDate = new Date(now.getTime() + jwtProperties.getRefreshTokenExpTime());
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtProperties.getRefreshTokenExpTime());
 
-		Key key = Keys.hmacShaKeyFor(jwtProperties.getJwtSecret().getBytes());
-		String roles = getRoles(authentication.getAuthorities(), aditionalRoles);
+        Key key = Keys.hmacShaKeyFor(jwtProperties.getJwtSecret().getBytes());
+        String roles = getRoles(authentication.getAuthorities(), aditionalRoles);
 
-		return Jwts.builder().setSubject(userPrincipal.getUsername()).setIssuedAt(new Date()).setExpiration(expiryDate)
-				.claim(JwtProperties.ROLES_CLAIM, roles).signWith(key).compact();
-	}
+        return Jwts.builder().setSubject(userPrincipal.getUsername()).setIssuedAt(new Date()).setExpiration(expiryDate)
+                .claim(JwtProperties.ROLES_CLAIM, roles).signWith(key).compact();
+    }
 }

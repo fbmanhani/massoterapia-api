@@ -1,30 +1,29 @@
 package br.edu.ifsp.manhani.massoterapia.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
-public class Massoterapeuta implements Serializable {
+@Table(name = "tb_massoterapeuta")
+public class Massoterapeuta extends BaseEntity<String> {
 
-	private static final long serialVersionUID = -6509305707391691043L;
+    private static final long serialVersionUID = -6509305707391691043L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column
-	private Long id;
+    @Id
+    @Column(name = "id_massoterapeuta", length = 20)
+    private String id;
 
-	@Column(length = 150)
-	private String nome;
+    @Column(name = "ds_nome", length = 150)
+    private String nome;
 
-	@Column
-	private Boolean ativo = true;
+    @Column(name = "st_ativo")
+    private Boolean ativo = true;
 
 }

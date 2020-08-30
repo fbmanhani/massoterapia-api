@@ -5,10 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MassoterapeutaDTO {
+public class UnidadeDTO {
 
-    private String id;
-    private String nome;
-    private Boolean ativo;
+    private Long id;
+    private String descricao;
 
 }

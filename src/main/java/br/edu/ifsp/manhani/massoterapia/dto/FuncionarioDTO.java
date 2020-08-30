@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class FuncionarioDTO {
 
-	private String login;
-	private String nome;
-	private Boolean ativo = true;
+    private String login;
+    private String nome;
+    private Boolean ativo;
 
 }

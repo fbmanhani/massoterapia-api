@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class ParametrizacaoDTO {
 
-	private Integer id;
-	private Integer quantidadePosicoes;
+    private Long id;
+    private UnidadeDTO unidade;
+    private Integer quantidadePosicoes;
 }

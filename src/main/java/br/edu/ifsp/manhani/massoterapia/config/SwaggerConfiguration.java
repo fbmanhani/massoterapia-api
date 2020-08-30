@@ -1,10 +1,15 @@
 package br.edu.ifsp.manhani.massoterapia.config;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +17,11 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
+import springfox.documentation.service.AuthorizationScope;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.DocExpansion;
 import springfox.documentation.swagger.web.ModelRendering;
@@ -42,7 +51,9 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.OAS_30).apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class)).paths(PathSelectors.any()).build()
-                .pathMapping("/");
+                .pathMapping("/")
+                .securitySchemes(Collections.singletonList(apiKey()))
+                .securityContexts(Arrays.asList(securityContext()));
     }
     
     @Bean
@@ -65,5 +76,25 @@ public class SwaggerConfiguration {
           .validatorUrl(null)
           .build();
     }
+    
+    private ApiKey apiKey() {
+        return new ApiKey(HttpHeaders.AUTHORIZATION, "api_key", "header"); 
+      }
+    
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+            .securityReferences(defaultAuth())
+            .forPaths(PathSelectors.any()) 
+            .build();
+      }
+
+    List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope
+            = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return Collections.singletonList(
+            new SecurityReference(HttpHeaders.AUTHORIZATION, authorizationScopes)); 
+      }
 
 }

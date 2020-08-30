@@ -43,8 +43,8 @@ public class MassoterapiaApiApplication {
                     InetAddress.getLocalHost().getHostAddress(),
                     env.getProperty(SERVER_PORT) + contextPath,
                     InetAddress.getLocalHost().getHostAddress(),
-                    env.getProperty(SERVER_PORT) + contextPath + "/swagger-ui.html",
-                    env.getProperty(SERVER_PORT) + contextPath + "/swagger-ui.html");
+                    env.getProperty(SERVER_PORT) + contextPath + "/swagger-ui/index.html",
+                    env.getProperty(SERVER_PORT) + contextPath + "/swagger-ui/index.html");
             // @formatter:on
         } catch (UnknownHostException e) {
             log.error("Falha ao executar aplicacao: {}", e);

@@ -18,19 +18,19 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/massoterapeuta")
 public class MassoterapeutaController {
 
-	@Autowired
-	private MassoterapeutaService service;
+    @Autowired
+    private MassoterapeutaService service;
 
-	@ApiOperation(value = "Recupera o massoterapeuta através do ID.")
-	@GetMapping("/{id}")
-	public ResponseEntity<MassoterapeutaDTO> findById(@PathVariable("id") Long id) {
-		return ResponseEntity.ok(service.findById(id));
-	}
+    @ApiOperation(value = "Recupera o massoterapeuta através do ID.")
+    @GetMapping("/{id}")
+    public ResponseEntity<MassoterapeutaDTO> findById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(service.findById(id));
+    }
 
-	@ApiOperation(value = "Insere ou atualiza as informações do massoterapeuta.")
-	@PostMapping
-	public ResponseEntity<MassoterapeutaDTO> save(MassoterapeutaDTO dto) {
-		return ResponseEntity.ok(service.save(dto));
-	}
+    @ApiOperation(value = "Insere ou atualiza as informações do massoterapeuta.")
+    @PostMapping
+    public ResponseEntity<MassoterapeutaDTO> save(MassoterapeutaDTO dto) {
+        return ResponseEntity.ok(service.save(dto));
+    }
 
 }

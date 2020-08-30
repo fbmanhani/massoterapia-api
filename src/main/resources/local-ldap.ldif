@@ -12,14 +12,14 @@ ou: groups
 dn: cn=administradores,ou=groups,dc=springframework,dc=org
 objectclass: top
 objectclass: groupOfUniqueNames
-cn: administradores
+cn: administrador
 ou: administrador
 uniquemember: uid=ben,ou=people,dc=springframework,dc=org
 
 dn: cn=massoterapeutas,ou=groups,dc=springframework,dc=org
 objectclass: top
 objectclass: groupOfUniqueNames
-cn: massoterapeutas
+cn: massoterapeuta
 ou: massoterapeuta
 uniquemember: uid=bob,ou=people,dc=springframework,dc=org
 uniquemember: uid=jerry,ou=people,dc=springframework,dc=org
