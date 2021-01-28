@@ -1,5 +1,7 @@
 package br.edu.ifsp.manhani.massoterapia.dto;
 
+import java.util.UUID;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class MassoterapeutaDTO {
 
-    private String id;
+    private UUID id;
     private String nome;
     private Boolean ativo;
 

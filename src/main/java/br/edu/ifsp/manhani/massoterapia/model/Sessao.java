@@ -1,16 +1,17 @@
 package br.edu.ifsp.manhani.massoterapia.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,15 +20,15 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "tb_sessao")
-@SequenceGenerator(name = "sessaoGenerator", sequenceName = "sq_sessao")
-public class Sessao extends BaseEntity<Long> {
+@GenericGenerator(name = "generatorSessao", strategy = "org.hibernate.id.UUIDGenerator")
+public class Sessao extends BaseEntity<UUID> {
 
     private static final long serialVersionUID = -1650381883234794185L;
 
     @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sessaoGenerator")
-    private Long id;
+    @Column(name = "id_sessao")
+    @GeneratedValue(generator = "generatorSessao")
+    private UUID id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_funcionario")

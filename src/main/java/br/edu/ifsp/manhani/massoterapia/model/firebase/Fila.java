@@ -1,8 +1,9 @@
-package br.edu.ifsp.manhani.massoterapia.model;
+package br.edu.ifsp.manhani.massoterapia.model.firebase;
 
 import com.github.alperkurtul.firebaserealtimedatabase.annotation.FirebaseDocumentId;
 import com.github.alperkurtul.firebaserealtimedatabase.annotation.FirebaseDocumentPath;
 
+import br.edu.ifsp.manhani.massoterapia.model.Posicao;
 import lombok.Data;
 
 @Data

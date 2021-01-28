@@ -1,5 +1,7 @@
 package br.edu.ifsp.manhani.massoterapia.service;
 
+import java.util.UUID;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class ParametrizacaoService {
     @Autowired
     private ParametrizacaoMapper mapper;
 
-    public ParametrizacaoDTO findById(Long id) {
+    public ParametrizacaoDTO findById(UUID id) {
         return mapper.toDto(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
     }
 
