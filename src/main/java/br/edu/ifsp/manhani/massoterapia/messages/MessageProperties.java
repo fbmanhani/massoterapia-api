@@ -2,6 +2,7 @@ package br.edu.ifsp.manhani.massoterapia.messages;
 
 public enum MessageProperties implements IMessageProperty {
 
+	ACCESS_DENIED("access_denied"),
     EMPTY("EMPTY"),
 	MSG0001("MSG0001"),
     MSG0002("MSG0002"),
@@ -34,7 +35,8 @@ public enum MessageProperties implements IMessageProperty {
     MSGSI001("MSGSI001"),
 	MSGSI002("MSGSI002"),
 	MSGSI003("MSGSI003"),
-	MSGSI004("MSGSI004");
+	MSGSI004("MSGSI004"), 
+	UNDENTIFIED_ERROR("unidentified_error");
 
 	private String[] args = {};
 
