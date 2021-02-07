@@ -11,5 +11,5 @@ public class ParametrizacaoDTO {
 
     private UUID id;
     private UnidadeDTO unidade;
-    private Integer quantidadePosicoes;
+    
 }

@@ -20,14 +20,17 @@ import lombok.EqualsAndHashCode;
 @GenericGenerator(name = "generatorUnidade", strategy = "org.hibernate.id.UUIDGenerator")
 public class Unidade extends BaseEntity<UUID> {
 
-    private static final long serialVersionUID = -6794195905797880053L;
+	private static final long serialVersionUID = -6794195905797880053L;
 
-    @Id
-    @Column(name = "id_sessao")
-    @GeneratedValue(generator = "generatorSessao")
-    private UUID id;
+	@Id
+	@Column(name = "id_unidade")
+	@GeneratedValue(generator = "generatorUnidade")
+	private UUID id;
 
-    @Column(name = "ds_unidade", length = 100, nullable = false)
-    private String descricao;
+	@Column(name = "ds_unidade", length = 100, nullable = false)
+	private String descricao;
+
+	@Column(name = "nu_posicoes", nullable = false)
+	private Integer posicoes;
 
 }

@@ -34,6 +34,6 @@ public class Parametrizacao extends BaseEntity<UUID> {
     private Unidade unidade;
 
     @Column(name = "nu_posicoes", nullable = false)
-    private Integer quantidadePosicoes;
+    private Integer posicoes;
 
 }

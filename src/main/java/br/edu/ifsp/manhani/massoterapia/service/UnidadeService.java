@@ -16,18 +16,22 @@ import br.edu.ifsp.manhani.massoterapia.repository.UnidadeRepository;
 @Transactional
 public class UnidadeService {
 
-    @Autowired
-    private UnidadeRepository repository;
+	@Autowired
+	private UnidadeRepository repository;
 
-    @Autowired
-    private UnidadeMapper mapper;
+	@Autowired
+	private UnidadeMapper mapper;
 
-    public List<UnidadeDTO> findAll() {
-        return mapper.toDto(repository.findAll());
-    }
+	public List<UnidadeDTO> findAll() {
+		return mapper.toDto(repository.findAll());
+	}
 
-    public UnidadeDTO findById(Long id) {
-        return mapper.toDto(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
-    }
+	public UnidadeDTO findById(Long id) {
+		return mapper.toDto(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
+	}
+
+	public UnidadeDTO save(UnidadeDTO dto) {
+		return mapper.toDto(repository.save(mapper.toEntity(dto)));
+	}
 
 }

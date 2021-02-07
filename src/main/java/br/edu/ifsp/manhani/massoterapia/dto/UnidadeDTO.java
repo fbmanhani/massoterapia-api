@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 public class UnidadeDTO {
 
-    private UUID id;
-    private String descricao;
+	private UUID id;
+	private String descricao;
+	private Integer posicoes;
 
 }

@@ -20,20 +20,20 @@ import lombok.EqualsAndHashCode;
 @GenericGenerator(name = "generatorFuncionario", strategy = "org.hibernate.id.UUIDGenerator")
 public class Funcionario extends BaseEntity<UUID> {
 
-    private static final long serialVersionUID = -972500207450172743L;
+	private static final long serialVersionUID = -972500207450172743L;
 
-    @Id
-    @Column(name = "id_funcionario")
-    @GeneratedValue(generator = "generatorFuncionario")
-    private UUID id;
+	@Id
+	@Column(name = "id_funcionario")
+	@GeneratedValue(generator = "generatorFuncionario")
+	private UUID id;
 
-    @Column(name = "co_funcionario", length = 50, nullable = false)
-    private String login;
+	@Column(name = "co_funcionario", length = 50, nullable = false)
+	private String login;
 
-    @Column(name = "no_funcionario", length = 150, nullable = false)
-    private String nome;
+	@Column(name = "no_funcionario", length = 150, nullable = false)
+	private String nome;
 
-    @Column(name = "st_ativo")
-    private Boolean ativo = true;
+	@Column(name = "st_ativo")
+	private Boolean ativo = true;
 
 }

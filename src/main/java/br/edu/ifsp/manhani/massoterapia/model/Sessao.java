@@ -23,22 +23,22 @@ import lombok.EqualsAndHashCode;
 @GenericGenerator(name = "generatorSessao", strategy = "org.hibernate.id.UUIDGenerator")
 public class Sessao extends BaseEntity<UUID> {
 
-    private static final long serialVersionUID = -1650381883234794185L;
+	private static final long serialVersionUID = -1650381883234794185L;
 
-    @Id
-    @Column(name = "id_sessao")
-    @GeneratedValue(generator = "generatorSessao")
-    private UUID id;
+	@Id
+	@Column(name = "id_sessao")
+	@GeneratedValue(generator = "generatorSessao")
+	private UUID id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_funcionario")
-    private Funcionario funcionario;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_funcionario")
+	private Funcionario funcionario;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_massoterapeuta")
-    private Massoterapeuta massoterapeuta;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "id_massoterapeuta")
+	private Massoterapeuta massoterapeuta;
 
-    @Column(name = "dt_operacao", nullable = false)
-    private LocalDateTime dataHora = LocalDateTime.now();
+	@Column(name = "dt_operacao", nullable = false)
+	private LocalDateTime dataHora = LocalDateTime.now();
 
 }
