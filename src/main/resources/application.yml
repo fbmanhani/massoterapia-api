@@ -21,11 +21,10 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: none
-    properties: 
+    properties:
       hibernate:
-        show-sql: true
-        format-sql: true
-        
+        format_sql: true
+    show-sql: true  
   ldap:
     embedded:
       base-dn: dc=springframework,dc=org
@@ -39,9 +38,9 @@ firebase-realtime-database:
 #Logging
 logging:
   level:
-    ROOT: DEBUG
+    ROOT: INFO
     org.springframework: INFO
-    org.hibernate: INFO
+    org.hibernate.type: INFO
     
 #Propriedades Documentação
 app-documentation:

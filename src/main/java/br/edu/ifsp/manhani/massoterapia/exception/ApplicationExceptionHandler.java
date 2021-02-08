@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.edu.ifsp.manhani.massoterapia.messages.IMessageProperty;
 import br.edu.ifsp.manhani.massoterapia.messages.MessageProperties;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +31,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 		log.debug(ex.getMessage(), ex);
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.FORBIDDEN, request);
 	}
-	
+
 	@ExceptionHandler(BadCredentialsException.class)
 	protected ResponseEntity<Object> handleBadCredentials(BadCredentialsException ex, WebRequest request) {
 		ErrorMessage message = new ErrorMessage(MessageProperties.MSG0001);
@@ -40,17 +41,19 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 
 	@ExceptionHandler(BusinessException.class)
 	protected ResponseEntity<Object> handleSecurity(BusinessException ex, WebRequest request) {
-		List<ErrorMessage> erros = new ArrayList<>();
+		ErrorMessage erro = null;
 		log.debug(ex.getMessage(), ex);
 		if (!ex.getMessages().isEmpty()) {
-			ex.getMessages().iterator().forEachRemaining(msg -> erros.add(new ErrorMessage(msg)));
-			if (erros.isEmpty()) {
-				erros.add(new ErrorMessage(MessageProperties.UNDENTIFIED_ERROR));
+			for (IMessageProperty msg : ex.getMessages()) {
+				erro = new ErrorMessage(msg);
+			}
+			if (erro == null) {
+				erro = new ErrorMessage(MessageProperties.UNDENTIFIED_ERROR);
 			}
 		} else {
-			erros.add(new ErrorMessage(ex.getCause().getClass().getName(), ex.getMessage()));
+			erro = new ErrorMessage(ex.getCause().getClass().getName(), ex.getMessage());
 		}
-		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+		return handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
 	@Override
