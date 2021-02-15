@@ -35,7 +35,7 @@ public class JwtTokenProvider {
 
     public String generateToken(Authentication authentication, Collection<? extends GrantedAuthority> aditionalRoles) {
         LdapUserDetailsImpl userPrincipal = (LdapUserDetailsImpl) authentication.getPrincipal();
-
+        
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtProperties.getTokenExpTime());
 

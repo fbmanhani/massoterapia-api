@@ -1,14 +1,17 @@
 package br.edu.ifsp.manhani.massoterapia.model;
 
+import java.util.UUID;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,18 +20,19 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "tb_posicao")
-@SequenceGenerator(name = "posicaoGenerator", sequenceName = "sq_posicao")
-public class Posicao extends BaseEntity<Long> {
+@GenericGenerator(name = "generatorPosicao", strategy = "org.hibernate.id.UUIDGenerator")
+public class Posicao extends BaseEntity<UUID> {
 
 	private static final long serialVersionUID = 4670328178020901856L;
 
 	@Id
 	@Column(name = "id_posicao")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posicaoGenerator")
-	private Long id;
+	@GeneratedValue(generator = "generatorPosicao")
+	private UUID id;
 
-	@Column(name = "ds_login_posicao")
-	private String loginUsuario;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "id_funcionario")
+	private Funcionario funcionario;
 
 	@Column(name = "nu_posicao")
 	private Integer numero;
