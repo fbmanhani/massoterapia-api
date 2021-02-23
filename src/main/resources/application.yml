@@ -4,14 +4,17 @@ server:
       context-path: /massoterapia-api
       
 jwt:
-  tokenExpTime: '1800000'
-  refreshTokenExpTime: '3600000'
+  tokenExpTime: '28800000' #8 horas
+  refreshTokenExpTime: '43200000' #12 horas
   jwtSecret: 2bb80d537b1da3e38bd30361aa855686bde0eacd7162fef6a25fe97bf527a25b #Precisa ser um Hash SHA-256      
 
 spring:
   application:
     name: massoterapia-api
     cors-allowed-urls: '*'
+  jackson:
+    default-property-inclusion: NON_EMPTY
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/massoterapiadb
@@ -30,8 +33,7 @@ spring:
       base-dn: dc=springframework,dc=org
       ldif: classpath:local-ldap.ldif
       port: 12345
-
-
+      
 firebase-realtime-database:
     database-url: https://massoterapia-3c8d9.firebaseio.com/
     
@@ -40,7 +42,7 @@ logging:
   level:
     ROOT: INFO
     org.springframework: INFO
-    org.hibernate.type: INFO
+    org.hibernate.type: TRACE
     
 #Propriedades Documentação
 app-documentation:

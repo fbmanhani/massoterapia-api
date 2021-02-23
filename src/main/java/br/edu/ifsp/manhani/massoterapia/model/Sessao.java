@@ -37,8 +37,12 @@ public class Sessao extends BaseEntity<UUID> {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "id_massoterapeuta")
 	private Massoterapeuta massoterapeuta;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_unidade", nullable = false)
+	private Unidade unidade;
 
-	@Column(name = "dt_operacao", nullable = false)
+	@Column(name = "dt_sessao", nullable = false)
 	private LocalDateTime dataHora = LocalDateTime.now();
 
 }

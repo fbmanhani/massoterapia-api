@@ -14,7 +14,7 @@ public class FuncionarioDTO {
 
 	@JsonProperty("fullname")
 	private String nome;
-	
+
 	private Boolean ativo;
 
 }

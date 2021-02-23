@@ -21,12 +21,17 @@ public class LdapService {
 	private LdapTemplate ldapTemplate;
 
 	public List<UsuarioLdapDTO> getAllPeople() {
-		return ldapTemplate.search(query().where("objectclass").is("person"), new AttributesMapper<UsuarioLdapDTO>() {
-			public UsuarioLdapDTO mapFromAttributes(Attributes attrs) throws NamingException {
+		List<UsuarioLdapDTO> lista = ldapTemplate.search(query().where("objectclass").is("person"),
+				new AttributesMapper<UsuarioLdapDTO>() {
+					public UsuarioLdapDTO mapFromAttributes(Attributes attrs) throws NamingException {
 
-				return UsuarioLdapDTO.builder().nomeCompleto(attrs.get("cn").get().toString())
-						.usuario(attrs.get("uid").get().toString()).build();
-			}
-		});
+						return UsuarioLdapDTO.builder().nomeCompleto(attrs.get("cn").get().toString())
+								.usuario(attrs.get("uid").get().toString()).build();
+					}
+				});
+
+		lista.sort((o1, o2) -> o1.getNomeCompleto().compareTo(o2.getNomeCompleto()));
+		return lista;
+
 	}
 }
