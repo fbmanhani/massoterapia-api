@@ -8,4 +8,6 @@ import br.edu.ifsp.manhani.massoterapia.model.Massoterapeuta;
 @Repository
 public interface MassoterapeutaRepository extends CrudRepository<Massoterapeuta, Long> {
 
+	Massoterapeuta findByLogin(String login);
+
 }

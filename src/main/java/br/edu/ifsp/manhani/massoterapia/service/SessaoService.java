@@ -14,6 +14,11 @@ import br.edu.ifsp.manhani.massoterapia.dto.SessaoDTO;
 import br.edu.ifsp.manhani.massoterapia.exception.BusinessException;
 import br.edu.ifsp.manhani.massoterapia.mapper.SessaoMapper;
 import br.edu.ifsp.manhani.massoterapia.messages.MessageProperties;
+import br.edu.ifsp.manhani.massoterapia.model.Funcionario;
+import br.edu.ifsp.manhani.massoterapia.model.Massoterapeuta;
+import br.edu.ifsp.manhani.massoterapia.model.Sessao;
+import br.edu.ifsp.manhani.massoterapia.repository.FuncionarioRepository;
+import br.edu.ifsp.manhani.massoterapia.repository.MassoterapeutaRepository;
 import br.edu.ifsp.manhani.massoterapia.repository.SessaoRepository;
 
 @Service
@@ -26,12 +31,30 @@ public class SessaoService {
 	@Autowired
 	private SessaoMapper mapper;
 
+	@Autowired
+	private FuncionarioRepository funcionarioRepository;
+
+	@Autowired
+	private MassoterapeutaRepository massoterapeutaRepository;
+
 	public List<SessaoDTO> findAll() {
 		return mapper.toDto(repository.findAll());
 	}
 
 	public SessaoDTO save(SessaoDTO dto) {
-		return mapper.toDto(repository.save(mapper.toEntity(dto)));
+		Sessao entity = mapper.toEntity(dto);
+		Funcionario f = funcionarioRepository.findByLogin(entity.getFuncionario().getLogin());
+		entity.setFuncionario(f);
+
+		Massoterapeuta m = massoterapeutaRepository.findByLogin(entity.getMassoterapeuta().getLogin());
+		if (m == null) {
+			m = new Massoterapeuta();
+			m.setLogin(entity.getMassoterapeuta().getLogin().trim());
+			m.setNome(entity.getMassoterapeuta().getNome().trim());
+		}
+		entity.setMassoterapeuta(m);
+
+		return mapper.toDto(entity);
 	}
 
 	public List<RelatorioDTO> findAllGroupedByMassoterapeuta(UUID idUnidade, LocalDate date) {

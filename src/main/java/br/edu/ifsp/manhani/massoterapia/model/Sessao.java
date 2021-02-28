@@ -3,6 +3,7 @@ package br.edu.ifsp.manhani.massoterapia.model;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,14 +31,14 @@ public class Sessao extends BaseEntity<UUID> {
 	@GeneratedValue(generator = "generatorSessao")
 	private UUID id;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "id_funcionario")
 	private Funcionario funcionario;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "id_massoterapeuta")
 	private Massoterapeuta massoterapeuta;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_unidade", nullable = false)
 	private Unidade unidade;

@@ -38,6 +38,7 @@ cn: Ben Alex
 sn: Alex
 uid: ben.alex
 userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: Araraquara
 
 dn: uid=bob,ou=people,dc=springframework,dc=org
 objectclass: top
@@ -48,6 +49,7 @@ cn: Bob Hamilton
 sn: Hamilton
 uid: bob
 userpassword:$2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: Araraquara
 
 dn: uid=jerry,ou=people,dc=springframework,dc=org
 objectclass: top
@@ -58,6 +60,7 @@ cn: Jerry Mouse
 sn: Mouse
 uid: jerry
 userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: Araraquara
 
 dn: uid=maria.silva,ou=people,dc=springframework,dc=org
 objectclass: top
@@ -66,18 +69,20 @@ objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Maria Silva
 sn: Silva
-uid: Maria
+uid: maria.silva
 userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: Araraquara
 
 dn: uid=jose.teles,ou=people,dc=springframework,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-cn: José Teles
+cn: JosÃ© Teles
 sn: Teles
-uid: José
+uid: jose.teles
 userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: Araraquara
 
 
 

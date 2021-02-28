@@ -30,7 +30,7 @@ public class Posicao extends BaseEntity<UUID> {
 	@GeneratedValue(generator = "generatorPosicao")
 	private UUID id;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "id_funcionario")
 	private Funcionario funcionario;
 

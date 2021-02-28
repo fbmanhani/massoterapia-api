@@ -17,6 +17,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.ldap.userdetails.LdapUserDetails;
+import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsMapper;
 import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -71,7 +73,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			public UserDetails mapUserFromContext(DirContextOperations ctx, String username,
 					Collection<? extends GrantedAuthority> authorities) {
 				String fullNamePlusLogin = String.format("%s (%s)", (String) ctx.getObjectAttribute("cn"), username);
-				return super.mapUserFromContext(ctx, fullNamePlusLogin, authorities);
+				LdapUserDetailsImpl details = (LdapUserDetailsImpl) super.mapUserFromContext(ctx, fullNamePlusLogin,
+						authorities);
+				log.info("DN from ctx: " + ctx.getDn()); // return correct DN
+				log.info("Attributes size: " + ctx.getAttributes().size()); // always returns 0
+
+				return new CustomUserDetails(details, (String) ctx.getObjectAttribute("l"));
 
 			}
 		};
@@ -95,6 +102,71 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	public class CustomUserDetails implements LdapUserDetails {
+
+		private static final long serialVersionUID = 7675369403667621548L;
+		private String city;
+		private LdapUserDetails details;
+
+		public CustomUserDetails(LdapUserDetails details, String city) {
+			this.details = details;
+			this.city = city;
+		}
+
+		public String getCity() {
+			return city;
+		}
+
+		public void setCity(String city) {
+			this.city = city;
+		}
+
+		@Override
+		public String getDn() {
+			return details.getDn();
+		}
+
+		@Override
+		public Collection<? extends GrantedAuthority> getAuthorities() {
+			return details.getAuthorities();
+		}
+
+		@Override
+		public String getPassword() {
+			return details.getPassword();
+		}
+
+		@Override
+		public String getUsername() {
+			return details.getUsername();
+		}
+
+		@Override
+		public boolean isAccountNonExpired() {
+			return details.isAccountNonExpired();
+		}
+
+		@Override
+		public boolean isAccountNonLocked() {
+			return details.isAccountNonLocked();
+		}
+
+		@Override
+		public boolean isCredentialsNonExpired() {
+			return details.isCredentialsNonExpired();
+		}
+
+		@Override
+		public boolean isEnabled() {
+			return details.isEnabled();
+		}
+
+		@Override
+		public void eraseCredentials() {
+			details.eraseCredentials();
+		}
 	}
 
 }

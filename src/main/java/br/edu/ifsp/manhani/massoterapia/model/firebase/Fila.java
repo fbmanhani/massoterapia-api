@@ -1,18 +1,28 @@
 package br.edu.ifsp.manhani.massoterapia.model.firebase;
 
+import java.util.List;
+
 import com.github.alperkurtul.firebaserealtimedatabase.annotation.FirebaseDocumentId;
 import com.github.alperkurtul.firebaserealtimedatabase.annotation.FirebaseDocumentPath;
+import com.github.alperkurtul.firebaserealtimedatabase.annotation.FirebaseUserAuthKey;
 
-import br.edu.ifsp.manhani.massoterapia.model.Posicao;
+import br.edu.ifsp.manhani.massoterapia.dto.FilaDTO;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @FirebaseDocumentPath("/fila")
 public class Fila {
 
-    @FirebaseDocumentId
-    private Long id;
+	@FirebaseUserAuthKey
+	private String authKey;
 
-    private Posicao posicao;
+	@FirebaseDocumentId
+	private String id;
+
+	List<FilaDTO> posicoes;
 
 }

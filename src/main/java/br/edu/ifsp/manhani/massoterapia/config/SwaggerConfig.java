@@ -32,7 +32,7 @@ import springfox.documentation.swagger.web.UiConfigurationBuilder;
 
 @Slf4j
 @Configuration
-public class SwaggerConfiguration {
+public class SwaggerConfig {
 
     @Autowired
     private ApplicationProperties.Documentation properties;

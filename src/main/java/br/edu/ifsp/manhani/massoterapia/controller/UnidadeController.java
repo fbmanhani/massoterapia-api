@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,11 @@ public class UnidadeController {
 	@PostMapping
 	public UnidadeDTO save(@RequestBody UnidadeDTO dto) {
 		return service.save(dto);
+	}
+
+	@GetMapping("/{descricao}")
+	public UnidadeDTO findByDescricao(@PathVariable String descricao) {
+		return service.findByDescricao(descricao);
 	}
 
 }

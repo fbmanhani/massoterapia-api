@@ -33,6 +33,10 @@ public class UnidadeService {
 		return mapper.toDto(repository.findById(id).orElseThrow(ResourceNotFoundException::new));
 	}
 
+	public UnidadeDTO findByDescricao(String descricao) {
+		return mapper.toDto(repository.findByDescricao(descricao).orElseThrow(ResourceNotFoundException::new));
+	}
+
 	public UnidadeDTO save(UnidadeDTO dto) {
 		if (repository.existsByDescricao(dto.getDescricao(), dto.getId())) {
 			throw new BusinessException(MessageProperties.MSG0003);
