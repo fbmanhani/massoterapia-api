@@ -33,6 +33,8 @@ spring:
       base-dn: dc=springframework,dc=org
       ldif: classpath:local-ldap.ldif
       port: 12345
+  flyway:
+    enabled: true
       
 firebase-realtime-database:
     database-url: https://massoterapia-3c8d9.firebaseio.com/
