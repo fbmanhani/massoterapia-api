@@ -28,5 +28,19 @@ Pré-requisitos:
 
 Ao executar a aplicação, o Spring Boot executará o script do Flyway para a criação da base de dados MySQL.
 
-A aplicação utiliza-se, também, de uma base de dados Firebase e esta deve ser configurada no application.yml para que a aplicação funcione corretamente.
+A aplicação utiliza-se, também, de uma base de dados Firebase e esta deve ser criada e configurada para que a aplicação funcione corretamente.
 
+Entre no link https://console.firebase.google.com/ e crie a sua realtime database e o client para a sua aplicação. Após tudo criado, siga os passos abaixo:
+- Inclua a URL da base de dados na seguinte propriedade do application.yml
+    ```
+    firebase-realtime-database.database-url: https://databasexxx.firebaseio.com/
+    ```
+    
+- Crie o arquivo firebase-web-api-key.txt em src/main/resources e inclua nele o clientId do Firebase da seguinte forma:
+    ```
+    firebase-web-api-key : example_client_id
+    ```
+
+### LDAP
+
+A aplicação faz uso do Spring LDAP para se comunicar com uma base de usuários local. Essa base está disponível no arquivo local-ldap.ldif.
