@@ -2,7 +2,10 @@ package br.edu.ifsp.manhani.massoterapia.service;
 
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
@@ -21,6 +24,20 @@ public class LdapService {
 	private LdapTemplate ldapTemplate;
 
 	public List<UsuarioLdapDTO> getAllPeople() {
+		List<List<String>> massoterapeutas = ldapTemplate.search(
+				"cn=massoterapeutas,ou=groups,dc=springframework,dc=org", "(uniquemember=*)",
+				new AttributesMapper<List<String>>() {
+					public List<String> mapFromAttributes(Attributes attrs) throws NamingException {
+
+						Iterator<?> i = attrs.get("uniquemember").getAll().asIterator();
+						List<String> lista = new ArrayList<>();
+						while (i.hasNext()) {
+							lista.add((String) i.next());
+						}
+						return lista;
+					}
+				});
+
 		List<UsuarioLdapDTO> lista = ldapTemplate.search(query().where("objectclass").is("person"),
 				new AttributesMapper<UsuarioLdapDTO>() {
 					public UsuarioLdapDTO mapFromAttributes(Attributes attrs) throws NamingException {
@@ -31,6 +48,10 @@ public class LdapService {
 				});
 
 		lista.sort((o1, o2) -> o1.getNomeCompleto().compareTo(o2.getNomeCompleto()));
+
+		lista = lista.stream().filter(i -> massoterapeutas.get(0).stream().noneMatch(item -> item.contains(i.getUsuario())))
+				.collect(Collectors.toList());
+
 		return lista;
 
 	}

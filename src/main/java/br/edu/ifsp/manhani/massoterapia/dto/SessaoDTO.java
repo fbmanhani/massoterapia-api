@@ -18,8 +18,8 @@ public class SessaoDTO {
 	private FuncionarioDTO funcionario;
 
 	@JsonProperty("massagist")
-	private MassoterapeutaDTO massoterapeuta;
 
+	private MassoterapeutaDTO massoterapeuta;
 	@JsonProperty("unit")
 	private UnidadeDTO unidade;
 
