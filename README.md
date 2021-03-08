@@ -40,6 +40,11 @@ Entre no link https://console.firebase.google.com/ e crie a sua realtime databas
     ```
     firebase-web-api-key : example_client_id
     ```
+- Configure nas variáveis de ambiente do sistema o usuário e senha do usuário de serviço do Firebase
+    ```
+    FIREBASE_USERNAME : seu_username
+    FIREBASE_PASSWORD : seu_password
+    ```
 
 ### LDAP
 
