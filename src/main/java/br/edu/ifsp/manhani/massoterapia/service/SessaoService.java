@@ -54,17 +54,22 @@ public class SessaoService {
 		}
 		entity.setMassoterapeuta(m);
 
-		return mapper.toDto(entity);
+		return mapper.toDto(repository.save(entity));
 	}
 
-	public List<RelatorioDTO> findAllGroupedByMassoterapeuta(UUID idUnidade, LocalDate date) {
-		List<RelatorioDTO> lista = repository.findAllGroupedByMassoterapeuta(idUnidade, date.getYear(),
+	public List<RelatorioDTO> countAllGroupedByMassoterapeuta(UUID idUnidade, LocalDate date) {
+		List<RelatorioDTO> lista = repository.countAllGroupedByMassoterapeuta(idUnidade, date.getYear(),
 				date.getMonthValue());
 		if (lista.isEmpty()) {
 			throw new BusinessException(MessageProperties.MSG0004);
 		}
-
 		return lista;
+	}
+
+	public RelatorioDTO countByMassoterapeuta(String login, LocalDate date) {
+		Long qtd = repository.countByMassoterapeuta(login, date.getYear(), date.getMonthValue());
+		qtd = qtd == null ? 0l : qtd;
+		return new RelatorioDTO(login, qtd);
 	}
 
 }

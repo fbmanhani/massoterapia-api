@@ -34,9 +34,15 @@ public class SessaoController {
 	}
 
 	@GetMapping("/{idUnidade}/{date}")
-	public List<RelatorioDTO> findAllGroupedByMassoterapeuta(@PathVariable("idUnidade") UUID idUnidade,
+	public List<RelatorioDTO> countAllGroupedByMassoterapeuta(@PathVariable("idUnidade") UUID idUnidade,
 			@PathVariable("date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDate date) {
-		return service.findAllGroupedByMassoterapeuta(idUnidade, date);
+		return service.countAllGroupedByMassoterapeuta(idUnidade, date);
+	}
+	
+	@GetMapping("/count/{massoterapeuta}/{date}")
+	public RelatorioDTO countByMassoterapeuta(@PathVariable("massoterapeuta") String login,
+			@PathVariable("date") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDate date) {
+		return service.countByMassoterapeuta(login, date);
 	}
 
 }

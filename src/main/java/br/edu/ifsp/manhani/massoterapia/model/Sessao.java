@@ -46,4 +46,10 @@ public class Sessao extends BaseEntity<UUID> {
 	@Column(name = "dt_sessao", nullable = false)
 	private LocalDateTime dataHora = LocalDateTime.now();
 
+	public void setDataHora(LocalDateTime data) {
+		if (data != null) {
+			this.dataHora = data;
+		}
+	}
+
 }

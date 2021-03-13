@@ -16,6 +16,12 @@ public interface SessaoRepository extends JpaRepository<Sessao, Long> {
 	@Query("select new br.edu.ifsp.manhani.massoterapia.dto.RelatorioDTO(s.massoterapeuta.nome, count(*)) from Sessao s "
 			+ " where s.unidade.id = :idUnidade and year(s.dataHora) = :ano and month(s.dataHora) = :mes"
 			+ " group by s.massoterapeuta.nome order by 1")
-	List<RelatorioDTO> findAllGroupedByMassoterapeuta(UUID idUnidade, Integer ano, Integer mes);
+	List<RelatorioDTO> countAllGroupedByMassoterapeuta(UUID idUnidade, Integer ano, Integer mes);
 
+	
+	@Query("select count(*) from Sessao s "
+			+ " where s.massoterapeuta.login = :login and year(s.dataHora) = :ano and month(s.dataHora) = :mes"
+			+ " group by s.massoterapeuta.nome order by 1")
+	Long countByMassoterapeuta(String login, Integer ano, Integer mes);
+	
 }
