@@ -29,10 +29,14 @@ spring:
         format_sql: true
     show-sql: true  
   ldap:
-    embedded:
-      base-dn: dc=springframework,dc=org
-      ldif: classpath:local-ldap.ldif
-      port: 12345
+    urls: ldap://localhost:389/
+    base: dc=springframework,dc=org
+    username: cn=admin,dc=springframework,dc=org
+    password: admin
+#    embedded:
+#      base-dn: dc=springframework,dc=org
+#      ldif: classpath:local-ldap.ldif
+#      port: 12345
   flyway:
     enabled: true
       
@@ -45,6 +49,7 @@ logging:
     ROOT: INFO
     org.springframework: INFO
     org.hibernate.type: TRACE
+    org.springframework.ldap: DEBUG
     
 #Propriedades Documentação
 app-documentation:

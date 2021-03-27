@@ -8,3 +8,32 @@ services:
       MYSQL_DATABASE: "massoterapiadb"
     ports:
       - 3306:3306
+  openldap:
+    build: .
+    container_name: openldap
+    environment:
+      LDAP_TLS: "false"
+      LDAP_DOMAIN: springframework.org
+      LDAP_BASE_DN: dc=springframework,dc=org
+      LDAP_LOG_LEVEL: "256"
+      LDAP_READONLY_USER: "true"
+    volumes:
+      - ldap_data:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
+    ports:
+      - "389:389"
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    container_name: phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: "openldap"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "8090:80"
+    depends_on:
+      - openldap
+      
+volumes:
+  ldap_data:
+  ldap_config:
+  

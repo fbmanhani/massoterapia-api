@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,9 +19,9 @@ public class LdapController {
 	@Autowired
 	private LdapService service;
 
-	@GetMapping("/users")
-	public List<UsuarioLdapDTO> findAll() {
-		return service.getAllPeople();
+	@GetMapping("/users/{unidade}")
+	public List<UsuarioLdapDTO> findAll(@PathVariable("unidade") String unidade) {
+		return service.getAllPeople(unidade);
 	}
 
 }

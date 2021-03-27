@@ -23,9 +23,9 @@ public class LdapService {
 	@Autowired
 	private LdapTemplate ldapTemplate;
 
-	public List<UsuarioLdapDTO> getAllPeople() {
+	public List<UsuarioLdapDTO> getAllPeople(String unidade) {
 		List<List<String>> massoterapeutas = ldapTemplate.search(
-				"cn=massoterapeutas,ou=groups,dc=springframework,dc=org", "(uniquemember=*)",
+				query().where("objectclass").is("groupOfUniqueNames").and("cn").is("massoterapeuta"),
 				new AttributesMapper<List<String>>() {
 					public List<String> mapFromAttributes(Attributes attrs) throws NamingException {
 
@@ -38,7 +38,7 @@ public class LdapService {
 					}
 				});
 
-		List<UsuarioLdapDTO> lista = ldapTemplate.search(query().where("objectclass").is("person"),
+		List<UsuarioLdapDTO> lista = ldapTemplate.search(query().where("objectclass").is("person").and("l").is(unidade),
 				new AttributesMapper<UsuarioLdapDTO>() {
 					public UsuarioLdapDTO mapFromAttributes(Attributes attrs) throws NamingException {
 
@@ -49,9 +49,11 @@ public class LdapService {
 
 		lista.sort((o1, o2) -> o1.getNomeCompleto().compareTo(o2.getNomeCompleto()));
 
-		lista = lista.stream().filter(i -> massoterapeutas.get(0).stream().noneMatch(item -> item.contains(i.getUsuario())))
-				.collect(Collectors.toList());
-
+		if (!massoterapeutas.isEmpty()) {
+			lista = lista.stream()
+					.filter(i -> massoterapeutas.get(0).stream().noneMatch(item -> item.contains(i.getUsuario())))
+					.collect(Collectors.toList());
+		}
 		return lista;
 
 	}

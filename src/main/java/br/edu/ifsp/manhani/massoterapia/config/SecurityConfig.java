@@ -39,6 +39,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ApplicationProperties.Urls urls;
 
+	@Autowired
+	private ApplicationProperties.Ldap ldap;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
@@ -57,7 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         		.groupSearchBase("ou=groups")
         		.userDetailsContextMapper(userDetailsContextMapper())
         		.contextSource()
-                	.url("ldap://localhost:12345/dc=springframework,dc=org")
+            	.url(ldap.urls + ldap.baseDn)
+                .managerDn(ldap.username)
+                .managerPassword(ldap.password)
             	.and()
             		.passwordCompare()
             		.passwordEncoder(passwordEncoder())
@@ -65,6 +70,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
     // @formatter:on
+
+//	@Override
+//	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.ldapAuthentication().userDnPatterns("uid={0},ou=people").groupSearchBase("ou=groups")
+//				.userDetailsContextMapper(userDetailsContextMapper()).contextSource()
+//				.url("ldap://localhost:12345/dc=springframework,dc=org").and().passwordCompare()
+//				.passwordEncoder(passwordEncoder()).passwordAttribute("userPassword");
+//
+//	}
 
 	@Bean
 	public UserDetailsContextMapper userDetailsContextMapper() {
