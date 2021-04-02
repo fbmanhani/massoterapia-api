@@ -1,5 +1,7 @@
 package br.edu.ifsp.manhani.massoterapia.service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +21,7 @@ import br.edu.ifsp.manhani.massoterapia.dto.PosicaoDTO;
 import br.edu.ifsp.manhani.massoterapia.mapper.PosicaoMapper;
 import br.edu.ifsp.manhani.massoterapia.model.Funcionario;
 import br.edu.ifsp.manhani.massoterapia.model.Posicao;
+import br.edu.ifsp.manhani.massoterapia.model.TipoFuncionarioEnum;
 import br.edu.ifsp.manhani.massoterapia.model.firebase.Fila;
 import br.edu.ifsp.manhani.massoterapia.repository.FilaRepository;
 import br.edu.ifsp.manhani.massoterapia.repository.FuncionarioRepository;
@@ -67,18 +70,19 @@ public class PosicaoService {
 			if (posicao.getFuncionario() != null && posicao.getFuncionario().getId() == null) {
 				Funcionario f = funcionarioRepository.findByLogin(posicao.getFuncionario().getLogin());
 				if (f == null) {
-					f = Funcionario.builder().login(posicao.getFuncionario().getLogin())
-							.nome(posicao.getFuncionario().getNome()).build();
+					f = new Funcionario();
+					f.setLogin(posicao.getFuncionario().getLogin());
+					f.setNome(posicao.getFuncionario().getNome());
+					f.setDataNascimento(posicao.getFuncionario().getDataNascimento());
+					f.setFoto(posicao.getFuncionario().getFoto());
+					f.setTipo(TipoFuncionarioEnum.EFETIVO);
 				}
-
 				posicao.setFuncionario(f);
-
 				inserirFilaFirebase(fila, posicao);
 			} else {
 				removerPosicaoFirebase(fila, posicao);
 			}
 		}
-
 		repository.saveAll(posicoes);
 	}
 
@@ -125,7 +129,9 @@ public class PosicaoService {
 
 		if (!found) {
 			FilaDTO pos = new FilaDTO(posicao.getFuncionario().getNome(), posicao.getFuncionario().getLogin(),
-					posicao.getNumero());
+					posicao.getNumero(),
+					Period.between(posicao.getFuncionario().getDataNascimento(), LocalDate.now()).getYears(),
+					posicao.getFuncionario().getFoto());
 			fila.getPosicoes().add(pos);
 		}
 

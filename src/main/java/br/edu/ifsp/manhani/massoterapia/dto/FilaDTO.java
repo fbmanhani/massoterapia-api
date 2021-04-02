@@ -14,5 +14,7 @@ public class FilaDTO {
 	private String nome;
 	private String login;
 	private Integer posicao;
+	private Integer idade;
+	private String foto;
 
 }

@@ -1,9 +1,11 @@
 package br.edu.ifsp.manhani.massoterapia.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -39,8 +41,18 @@ public class Funcionario extends BaseEntity<UUID> {
 	@Column(name = "no_funcionario", length = 150, nullable = false)
 	private String nome;
 
+	@Column(name = "dt_nascimento")
+	private LocalDate dataNascimento;
+
+	@Column(name = "foto")
+	private String foto;
+
 	@Column(name = "st_ativo")
 	@Builder.Default
 	private Boolean ativo = true;
+
+	@Enumerated
+	@Column(name = "tp_funcionario")
+	private TipoFuncionarioEnum tipo;
 
 }

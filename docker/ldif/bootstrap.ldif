@@ -20,6 +20,9 @@ cn: massoterapeuta
 ou: massoterapeuta
 uniquemember: uid=maria.silva,ou=people,dc=springframework,dc=org
 uniquemember: uid=jose.teles,ou=people,dc=springframework,dc=org
+uniquemember: uid=fernanda.santos,ou=people,dc=springframework,dc=org
+uniquemember: uid=lara.pereira,ou=people,dc=springframework,dc=org
+uniquemember: uid=julia.lima,ou=people,dc=springframework,dc=org
 
 dn: ou=people,dc=springframework,dc=org
 changetype: add
@@ -33,11 +36,13 @@ objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
+objectclass: naturalPerson
 cn: Ben Alex
 sn: Alex
 uid: ben.alex
 userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
 l: Araraquara
+dateOfBirth: 19801019
 
 dn: uid=bob,ou=people,dc=springframework,dc=org
 changetype: add
@@ -45,11 +50,13 @@ objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
+objectclass: naturalPerson
 cn: Bob Hamilton
 sn: Hamilton
 uid: bob
 userpassword:$2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
 l: Araraquara
+dateOfBirth: 19871019
 
 dn: uid=jerry,ou=people,dc=springframework,dc=org
 changetype: add
@@ -57,11 +64,13 @@ objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
+objectclass: naturalPerson
 cn: Jerry Mouse
 sn: Mouse
 uid: jerry
 userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
 l: Araraquara
+dateOfBirth: 19881019
 
 dn: uid=maria.silva,ou=people,dc=springframework,dc=org
 changetype: add
@@ -69,11 +78,13 @@ objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
+objectclass: naturalPerson
 cn: Maria Silva
 sn: Silva
 uid: maria.silva
 userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
 l: Araraquara
+dateOfBirth: 19891019
 
 dn: uid=jose.teles,ou=people,dc=springframework,dc=org
 changetype: add
@@ -81,9 +92,136 @@ objectclass: top
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
+objectclass: naturalPerson
 cn: José Teles
 sn: Teles
 uid: jose.teles
 userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
 l: Araraquara
+dateOfBirth: 19900919
 
+dn: uid=felipe.manhani,ou=people,dc=springframework,dc=org
+changetype: add
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: naturalPerson
+cn: Felipe Manhani
+sn: Manhani
+uid: felipe.manhani
+userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: Araraquara
+dateOfBirth: 19831019
+
+dn: uid=tomas.rocha,ou=people,dc=springframework,dc=org
+changetype: add
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: naturalPerson
+cn: Tomás Rocha
+sn: Rocha
+uid: tomas.rocha
+userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: Araraquara
+dateOfBirth: 19851001
+
+dn: uid=fernanda.santos,ou=people,dc=springframework,dc=org
+changetype: add
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: naturalPerson
+cn: Fernanda Santos
+sn: Santos
+uid: fernanda.santos
+userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: Araraquara
+dateOfBirth: 19880407
+
+dn: uid=thiago.melo,ou=people,dc=springframework,dc=org
+changetype: add
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: naturalPerson
+cn: Thiago Melo
+sn: Melo
+uid: thiago.melo
+userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: Araraquara
+dateOfBirth: 19890120
+
+dn: uid=gabriela.barros,ou=people,dc=springframework,dc=org
+changetype: add
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: naturalPerson
+cn: Gabriela Barros
+sn: Barros
+uid: gabriela.barros
+userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: São Carlos
+dateOfBirth: 19821118
+
+dn: uid=brenda.cardoso,ou=people,dc=springframework,dc=org
+changetype: add
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: naturalPerson
+cn: Brenda Pereira Cardoso
+sn: Cardoso
+uid: brenda.cardoso
+userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: São Carlos
+dateOfBirth: 19920323
+
+dn: uid=vinicius.barbosa,ou=people,dc=springframework,dc=org
+changetype: add
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: naturalPerson
+cn: Vinícius Alves Barbosa
+sn: Barbosa
+uid: vinicius.barbosa
+userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: São Carlos
+dateOfBirth: 19841209
+
+dn: uid=lara.pereira,ou=people,dc=springframework,dc=org
+changetype: add
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: naturalPerson
+cn: Lara Costa Pereira
+sn: Pereira
+uid: lara.pereira
+userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: São Carlos
+dateOfBirth: 19860702
+
+dn: uid=julia.lima,ou=people,dc=springframework,dc=org
+changetype: add
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: naturalPerson
+cn: Julia Rodrigues Lima
+sn: Lima
+uid: julia.lima
+userpassword: $2y$12$35WtJ6fKNd9kucl/y6WXiuHChJNbqY30djV0oyjEPSpilWz8qWHSO
+l: São Carlos
+dateOfBirth: 19911213

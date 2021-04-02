@@ -1,0 +1,20 @@
+#
+# Date of birth:
+# a numeric string restricted to syntax YYYYMMDD
+#
+attributetype ( 1.3.6.1.4.1.5427.1.389.4.2
+      NAME ( 'dateOfBirth' )
+      DESC 'Date of birth (format YYYYMMDD, only numeric chars)'
+      EQUALITY numericStringMatch
+      SUBSTR numericStringSubstringsMatch
+      SINGLE-VALUE
+      SYNTAX 1.3.6.1.4.1.1466.115.121.1.36{8} )
+      
+      
+objectclass ( 1.2.840.113549.1.9.24.2 NAME 'naturalPerson'
+	DESC ''
+	SUP top
+	AUXILIARY
+	MAY dateOfBirth )
+      
+      

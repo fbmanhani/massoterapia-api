@@ -46,10 +46,7 @@ firebase-realtime-database:
 #Logging
 logging:
   level:
-    ROOT: INFO
-    org.springframework: INFO
     org.hibernate.type: TRACE
-    org.springframework.ldap: DEBUG
     
 #Propriedades Documentação
 app-documentation:

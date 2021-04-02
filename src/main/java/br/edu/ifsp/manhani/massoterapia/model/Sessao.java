@@ -37,7 +37,7 @@ public class Sessao extends BaseEntity<UUID> {
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "id_massoterapeuta")
-	private Massoterapeuta massoterapeuta;
+	private Funcionario massoterapeuta;
 
 	@ManyToOne
 	@JoinColumn(name = "id_unidade", nullable = false)
