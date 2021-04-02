@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -51,7 +52,7 @@ public class Funcionario extends BaseEntity<UUID> {
 	@Builder.Default
 	private Boolean ativo = true;
 
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	@Column(name = "tp_funcionario")
 	private TipoFuncionarioEnum tipo;
 
