@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifsp.manhani.massoterapia.dto.RelatorioDTO;
 import br.edu.ifsp.manhani.massoterapia.dto.SessaoDTO;
+import br.edu.ifsp.manhani.massoterapia.dto.UsuarioLdapDTO;
 import br.edu.ifsp.manhani.massoterapia.exception.BusinessException;
 import br.edu.ifsp.manhani.massoterapia.mapper.SessaoMapper;
 import br.edu.ifsp.manhani.massoterapia.messages.MessageProperties;
@@ -33,6 +34,9 @@ public class SessaoService {
 	@Autowired
 	private FuncionarioRepository funcionarioRepository;
 
+	@Autowired
+	private LdapService ldapService;
+
 	public List<SessaoDTO> findAll() {
 		return mapper.toDto(repository.findAll());
 	}
@@ -44,11 +48,12 @@ public class SessaoService {
 
 		Funcionario masso = funcionarioRepository.findByLogin(entity.getMassoterapeuta().getLogin());
 		if (masso == null) {
+			UsuarioLdapDTO ldapDto = ldapService.getByUsername(entity.getMassoterapeuta().getLogin());
 			masso = new Funcionario();
-			masso.setLogin(entity.getMassoterapeuta().getLogin().trim());
-			masso.setNome(entity.getMassoterapeuta().getNome().trim());
-			masso.setFoto(entity.getMassoterapeuta().getFoto());
-			masso.setDataNascimento(entity.getMassoterapeuta().getDataNascimento());
+			masso.setLogin(ldapDto.getUsuario());
+			masso.setNome(ldapDto.getNomeCompleto());
+			masso.setFoto(ldapDto.getFoto());
+			masso.setDataNascimento(ldapDto.getDataNascimento());
 			masso.setTipo(TipoFuncionarioEnum.MASSOTERAPEUTA);
 		}
 		entity.setMassoterapeuta(masso);

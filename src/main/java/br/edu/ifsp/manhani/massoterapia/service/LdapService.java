@@ -45,13 +45,14 @@ public class LdapService {
 		List<UsuarioLdapDTO> lista = ldapTemplate.search(query().where("objectclass").is("person").and("l").is(unidade),
 				new AttributesMapper<UsuarioLdapDTO>() {
 					public UsuarioLdapDTO mapFromAttributes(Attributes attrs) throws NamingException {
-						String foto = attrs.get("jpegPhoto") != null ? Base64Utils.encodeToString((byte[]) attrs.get("jpegPhoto").get()) : null;
+						String foto = attrs.get("jpegPhoto") != null
+								? Base64Utils.encodeToString((byte[]) attrs.get("jpegPhoto").get())
+								: null;
 						log.info(foto);
 						String dataStr = attrs.get("dateOfBirth").get().toString();
 						LocalDate data = LocalDate.parse(dataStr, DateTimeFormatter.ofPattern("yyyyMMdd"));
 						return UsuarioLdapDTO.builder().nomeCompleto(attrs.get("cn").get().toString())
-								.usuario(attrs.get("uid").get().toString())
-								.dataNascimento(data).foto(foto).build();
+								.usuario(attrs.get("uid").get().toString()).dataNascimento(data).foto(foto).build();
 					}
 				});
 
@@ -63,6 +64,21 @@ public class LdapService {
 					.collect(Collectors.toList());
 		}
 		return lista;
+	}
 
+	public UsuarioLdapDTO getByUsername(String username) {
+		return ldapTemplate.search(query().where("objectclass").is("person").and("uid").is(username),
+				new AttributesMapper<UsuarioLdapDTO>() {
+					public UsuarioLdapDTO mapFromAttributes(Attributes attrs) throws NamingException {
+						String foto = attrs.get("jpegPhoto") != null
+								? Base64Utils.encodeToString((byte[]) attrs.get("jpegPhoto").get())
+								: null;
+						log.info(foto);
+						String dataStr = attrs.get("dateOfBirth").get().toString();
+						LocalDate data = LocalDate.parse(dataStr, DateTimeFormatter.ofPattern("yyyyMMdd"));
+						return UsuarioLdapDTO.builder().nomeCompleto(attrs.get("cn").get().toString())
+								.usuario(attrs.get("uid").get().toString()).dataNascimento(data).foto(foto).build();
+					}
+				}).get(0);
 	}
 }
