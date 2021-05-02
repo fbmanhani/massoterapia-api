@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@FirebaseDocumentPath("/fila")
+@FirebaseDocumentPath("/filas")
 public class Fila {
 
 	@FirebaseUserAuthKey
